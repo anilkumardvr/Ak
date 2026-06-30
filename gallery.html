@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work — AK Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-row">
+    <a href="index.html" class="wordmark">AK<span>Photography</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Index</a>
+      <a href="gallery.html" class="active">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="admin.html">Upload</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-header">
+  <p class="eyebrow">Full archive</p>
+  <h1 class="page-title">The Work</h1>
+  <p class="page-sub">Every published frame, newest first. Filter by category, or open any frame for the full caption.</p>
+</div>
+
+<section class="section" style="border-bottom:none;">
+  <div class="filter-row" id="filterRow" style="margin-bottom:36px;"></div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<footer class="footer">
+  <span>© <span data-year></span> AK Photography. All frames reserved.</span>
+  <a href="admin.html">Manage uploads →</a>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">Close ✕</button>
+  <img src="" alt="">
+  <div class="lightbox-cap"></div>
+</div>
+
+<script src="js/store.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const allPhotos = akGetPhotos();
+  const cats = akCategories(allPhotos);
+  let active = "All";
+
+  const sizeCycle = ["gi-tall", "gi-square", "gi-wide gi-w2", "gi-square", "gi-tall", "gi-square", "gi-wide gi-w2", "gi-square"];
+
+  function render() {
+    const filtered = active === "All" ? allPhotos : allPhotos.filter(p => p.category === active);
+
+    document.getElementById("filterRow").innerHTML = cats.map(c => `
+      <button class="filter-pill ${c === active ? "active" : ""}" data-cat="${c}">${c}</button>
+    `).join("");
+
+    const grid = document.getElementById("galleryGrid");
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="gallery-empty">No frames in this category yet. <a href="admin.html">Add one →</a></div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map((p, i) => `
+      <div class="gallery-item ${sizeCycle[i % sizeCycle.length]}" data-lightbox data-full="${p.src}" data-caption="${p.title} — ${p.caption}">
+        <img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.closest('.gallery-item').style.display='none'">
+        <div class="gi-caption">${p.title} · ${p.category}${p.date ? " · " + p.date : ""}</div>
+      </div>
+    `).join("");
+  }
+
+  document.getElementById("filterRow").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-cat]");
+    if (!btn) return;
+    active = btn.dataset.cat;
+    render();
+  });
+
+  render();
+</script>
+
+</body>
+</html>

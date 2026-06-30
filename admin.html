@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Upload — AK Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-row">
+    <a href="index.html" class="wordmark">AK<span>Photography</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Index</a>
+      <a href="gallery.html">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="admin.html" class="active">Upload</a>
+    </nav>
+  </div>
+</header>
+
+<div class="admin-shell">
+  <p class="eyebrow">Studio only</p>
+  <h1 class="page-title" style="font-size:clamp(32px,5vw,44px); margin-bottom:24px;">Add to the archive</h1>
+
+  <div class="admin-note">
+    This page stores photos in this browser's local storage so the demo works without a server.
+    Uploads will appear in the gallery on this device only, and will reset if browser storage is
+    cleared. To publish photos permanently for all visitors, add image files to the
+    <code>/images</code> folder in the GitHub repo and list them in <code>js/store.js</code> —
+    see the README for the two-minute workflow.
+  </div>
+
+  <div class="dropzone" id="dropzone">
+    <div class="eyebrow">Drop photos here, or</div>
+    <p><label for="fileInput" style="text-decoration:underline; cursor:pointer; color:var(--ink);">browse files</label> — JPG or PNG, multiple allowed</p>
+    <input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
+  </div>
+
+  <div id="queueList"></div>
+
+  <div class="admin-actions" id="batchActions" style="display:none;">
+    <button class="btn" id="publishBtn">Publish to archive</button>
+    <button class="btn btn-outline" id="clearQueueBtn">Clear queue</button>
+  </div>
+  <p class="status-msg" id="statusMsg"></p>
+
+  <hr style="margin:48px 0; border:none; border-top:1px solid var(--line);">
+
+  <h2 class="section-title" style="font-size:24px; margin-bottom:20px;">Currently published (this device)</h2>
+  <div id="publishedList"></div>
+</div>
+
+<footer class="footer">
+  <span>© <span data-year></span> AK Photography. All frames reserved.</span>
+  <a href="gallery.html">View archive →</a>
+</footer>
+
+<script src="js/store.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+</html>

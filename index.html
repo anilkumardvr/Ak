@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AK Photography — Toronto-based photographer</title>
+<meta name="description" content="AK Photography — editorial, street and portrait photography by Anil Kumar, based in Toronto." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-row">
+    <a href="index.html" class="wordmark">AK<span>Photography</span></a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Index</a>
+      <a href="gallery.html">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="admin.html">Upload</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Vol. I — Toronto, Canada</p>
+      <h1 class="hero-title">Light, held<br><em>still.</em></h1>
+      <p class="hero-sub">A working archive of street, portrait and landscape photography by Anil Kumar — shot on assignment, between shifts, and on the long way home.</p>
+    </div>
+    <div class="hero-meta">
+      <div><strong>Based in</strong>Toronto, Ontario</div>
+      <div><strong>Shooting since</strong>2019</div>
+      <div><strong>Available for</strong>Editorial · Portrait · Events</div>
+    </div>
+  </div>
+</section>
+
+<!-- Signature element: contact-sheet filmstrip -->
+<div class="filmstrip">
+  <div class="sprockets" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="filmstrip-track" id="filmstripTrack"></div>
+  <div class="sprockets" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<section class="section" id="featured">
+  <div class="section-head">
+    <h2 class="section-title">Recent frames</h2>
+    <span class="section-count" id="featuredCount"></span>
+  </div>
+  <div class="gallery-grid" id="featuredGrid"></div>
+  <div style="margin-top:40px;">
+    <a href="gallery.html" class="btn">View full archive →</a>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-portrait">
+      <img src="images/about-portrait.jpg" alt="Portrait of Anil Kumar, photographer" loading="lazy">
+    </div>
+    <div class="about-copy">
+      <p>I photograph the city at the moments it forgets it's being watched.</p>
+      <p>Anil Kumar is a Toronto-based photographer working across street, portrait and editorial work. What started as a way to decompress after long days in tech became a second, quieter discipline — one frame at a time, mostly on foot, mostly before the city wakes up.</p>
+      <p>This site is also a live working archive: every shoot gets added here directly, unedited copy and all, so the index always reflects what's actually being made right now.</p>
+      <div class="stat-row">
+        <div><div class="stat-num">240+</div><div class="stat-label">Frames archived</div></div>
+        <div><div class="stat-num">6</div><div class="stat-label">Years shooting</div></div>
+        <div><div class="stat-num">12</div><div class="stat-label">Published features</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact" style="border-bottom:none;">
+  <div class="contact-grid">
+    <div>
+      <h2 class="contact-title">Have a shoot<br>in mind?</h2>
+      <div class="contact-links">
+        <a href="mailto:hello@akphotography.ca"><span>Email</span><span>hello@akphotography.ca</span></a>
+        <a href="https://github.com/anilkumardvr" target="_blank" rel="noopener"><span>GitHub</span><span>@anilkumardvr</span></a>
+        <a href="#"><span>Instagram</span><span>@ak.photography</span></a>
+        <a href="#"><span>LinkedIn</span><span>in/anilkumardvr</span></a>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('.status-msg')?.remove(); const m=document.createElement('p'); m.className='status-msg'; m.textContent='Message received — I\\'ll reply within 2 business days.'; this.appendChild(m); this.reset();">
+      <div class="field"><label for="name">Name</label><input id="name" type="text" required></div>
+      <div class="field"><label for="email">Email</label><input id="email" type="email" required></div>
+      <div class="field"><label for="brief">What are you planning?</label><textarea id="brief" rows="4" required></textarea></div>
+      <button type="submit" class="btn">Send message</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© <span data-year></span> AK Photography. All frames reserved.</span>
+  <span>Built in Toronto.</span>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">Close ✕</button>
+  <img src="" alt="">
+  <div class="lightbox-cap"></div>
+</div>
+
+<script src="js/store.js"></script>
+<script src="js/main.js"></script>
+<script>
+  const photos = akGetPhotos();
+  const featured = photos.slice(0, 6);
+  const sizes = ["gi-tall", "gi-square", "gi-wide gi-w2", "gi-square", "gi-tall", "gi-square"];
+
+  document.getElementById("featuredCount").textContent = `${photos.length} total — showing 6`;
+
+  document.getElementById("featuredGrid").innerHTML = featured.map((p, i) => `
+    <div class="gallery-item ${sizes[i % sizes.length]}" data-lightbox data-full="${p.src}" data-caption="${p.title} — ${p.caption}">
+      <img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.closest('.gallery-item').style.display='none'">
+      <div class="gi-caption">${p.title} · ${p.category}</div>
+    </div>
+  `).join("");
+
+  document.getElementById("filmstripTrack").innerHTML = photos.slice(0, 8).map((p, i) => `
+    <div class="filmstrip-frame">
+      <img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.closest('.filmstrip-frame').style.display='none'">
+      <span class="frame-no">Fr. ${String(i + 1).padStart(2, "0")}</span>
+    </div>
+  `).join("");
+</script>
+
+</body>
+</html>
